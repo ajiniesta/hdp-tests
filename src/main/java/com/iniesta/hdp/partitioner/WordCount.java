@@ -1,4 +1,4 @@
-package com.iniesta.hdp.combiner;
+package com.iniesta.hdp.partitioner;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
@@ -19,7 +19,7 @@ public class WordCount {
 		
 		Configuration conf = new Configuration(true);
 		
-		Job job = new Job(conf, "my wordcount mapreduce with combiner");
+		Job job = new Job(conf, "my wordcount mapreduce with custom partitioner");
 		job.setJarByClass(WordCountMapper.class);
 		
 		job.setMapperClass(WordCountMapper.class);
