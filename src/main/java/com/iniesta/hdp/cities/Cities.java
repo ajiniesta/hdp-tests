@@ -18,10 +18,10 @@ public class Cities extends Configured implements Tool{
 	public int run(String[] arg0) throws Exception {
 		Configuration conf = this.getConf();
 		
-		Job job = new Job(conf, "Test with citites in US");
+		Job job = Job.getInstance(conf, "Test with citites in US");
 		job.setJarByClass(Cities.class);
 		
-		job.waitForCompletion(true);
-		return 0;
+		int code = job.waitForCompletion(true) ? 0 : 1;
+		return code;
 	}
 }

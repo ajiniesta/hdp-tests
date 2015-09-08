@@ -19,7 +19,7 @@ public class WordCount {
 		
 		Configuration conf = new Configuration(true);
 		
-		Job job = new Job(conf, "my wordcount mapreduce with custom partitioner");
+		Job job = Job.getInstance(conf, "my wordcount mapreduce with custom partitioner");
 		job.setJarByClass(WordCountMapper.class);
 		
 		job.setMapperClass(WordCountMapper.class);
