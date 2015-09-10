@@ -12,16 +12,18 @@ public class MapperTask1 extends Mapper<LongWritable, Text, Text, Text> {
 
 	@Override
 	protected void setup(Mapper.Context context) throws IOException, InterruptedException {
-		// TODO Auto-generated method stub
 		super.setup(context);
-		Path[] cache = context.getLocalCacheFiles();
-//		URI[] files = context.getCacheFiles();
+		URI[] cache = context.getCacheFiles();
+		for (URI uri : cache) {
+			System.out.println(uri);
+		}
 	}
 
 	@Override
 	protected void map(LongWritable key, Text value, org.apache.hadoop.mapreduce.Mapper.Context context) throws IOException, InterruptedException {
-		// TODO Auto-generated method stub
 		super.map(key, value, context);
+		
+		
 	}
 
 	
