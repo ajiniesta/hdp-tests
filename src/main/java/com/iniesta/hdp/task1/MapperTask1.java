@@ -4,8 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
@@ -16,7 +16,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 public class MapperTask1 extends Mapper<LongWritable, Text, Task1Key, Task1Value> {
 
-	private static List<WeatherData> weathers = new ArrayList<WeatherData>();
+	private static Map<Task1Key, WeatherData> weathers = new HashMap<Task1Key, WeatherData>();
 	
 	@Override
 	protected void setup(Context context) throws IOException, InterruptedException {
@@ -41,14 +41,15 @@ public class MapperTask1 extends Mapper<LongWritable, Text, Task1Key, Task1Value
 			while((line = br.readLine())!=null){
 				String[] splits = line.split(",");
 				if(splits.length>6){
+					Task1Key key = new Task1Key();
+					key.setYear(Integer.parseInt(splits[1]));
+					key.setMonth(Integer.parseInt(splits[2]));
+					key.setDay(Integer.parseInt(splits[3]));
 					WeatherData wd = new WeatherData();
-					wd.setYear(Integer.parseInt(splits[1]));
-					wd.setMonth(Integer.parseInt(splits[2]));
-					wd.setDay(Integer.parseInt(splits[3]));
 					wd.setPrcp(Integer.parseInt(splits[4]));
 					wd.setTmax(Integer.parseInt(splits[5]));
 					wd.setTmin(Integer.parseInt(splits[6]));
-					weathers.add(wd);
+					weathers.put(key, wd);
 				}
 				
 			}
@@ -74,14 +75,16 @@ public class MapperTask1 extends Mapper<LongWritable, Text, Task1Key, Task1Value
 			outValue.setArrTime(Integer.parseInt(splits[6]));
 			outValue.setUniqueCarrier(new Text(splits[8]));
 			outValue.setFlightNumber(Integer.parseInt(splits[9]));
-			outValue.setActualElapsedTime(Integer.parseInt(splits[2]));
-			outValue.setArrDelay(Integer.parseInt(splits[2]));
-			outValue.setDepDelay(Integer.parseInt(splits[2]));
-			outValue.setOrigin(new Text(splits[2]));
-			outValue.setDestination(new Text(splits[2]));
-			outValue.setPrcp(Integer.parseInt(splits[2]));
-			outValue.setTmax(Integer.parseInt(splits[2]));
-			outValue.setTmin(Integer.parseInt(splits[2]));
+			outValue.setActualElapsedTime(Integer.parseInt(splits[11]));
+			outValue.setArrDelay(Integer.parseInt(splits[14]));
+			outValue.setDepDelay(Integer.parseInt(splits[15]));
+			outValue.setOrigin(new Text(splits[16]));
+			outValue.setDestination(new Text(splits[17]));
+			WeatherData wd = weathers.get(outKey);
+			outValue.setPrcp(wd.getPrcp());
+			outValue.setTmax(wd.getTmax());
+			outValue.setTmin(wd.getTmin());
+			outKey.setArrDelay(outValue.getArrDelay());
 			
 			context.write(outKey, outValue);
 		}

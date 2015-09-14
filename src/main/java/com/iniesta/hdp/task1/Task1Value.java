@@ -262,7 +262,7 @@ public class Task1Value implements Writable{
 
 	@Override
 	public String toString() {
-		return "Task1Value [year=" + year + ", month=" + month + ", day=" + day + ", depTime=" + depTime + ", arrTime=" + arrTime + ", uniqueCarrier=" + uniqueCarrier + ", flightNumber=" + flightNumber + ", actualElapsedTime=" + actualElapsedTime + ", arrDelay=" + arrDelay + ", depDelay=" + depDelay + ", origin=" + origin + ", destination=" + destination + ", prcp=" + prcp + ", tmax=" + tmax + ", tmin=" + tmin + "]";
+		return "" + year + "," + month + "," + day + "," + depTime + "," + arrTime + "," + uniqueCarrier + "," + flightNumber + "," + actualElapsedTime + "," + arrDelay + "," + depDelay + "," + origin + "," + destination + "," + prcp + "," + tmax + "," + tmin + "";
 	}
 
 	

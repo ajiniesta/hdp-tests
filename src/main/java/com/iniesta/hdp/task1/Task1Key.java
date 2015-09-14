@@ -11,17 +11,20 @@ public class Task1Key implements WritableComparable<Task1Key>{
 	private int year;
 	private int month;
 	private int day;
+	private int arrDelay;
 	
 	public void readFields(DataInput in) throws IOException {
 		year = in.readInt();
 		month = in.readInt();
 		day = in.readInt();
+		arrDelay = in.readInt();
 	}
 
 	public void write(DataOutput out) throws IOException {
 		out.writeInt(year);
 		out.writeInt(month);
 		out.writeInt(day);
+		out.writeInt(arrDelay);
 	}
 
 	public int compareTo(Task1Key o) {
@@ -63,10 +66,19 @@ public class Task1Key implements WritableComparable<Task1Key>{
 		this.day = day;
 	}
 
+	public void setArrDelay(int arrDelay) {
+		this.arrDelay = arrDelay;
+	}
+	
+	public int getArrDelay(){
+		return this.arrDelay;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + arrDelay;
 		result = prime * result + day;
 		result = prime * result + month;
 		result = prime * result + year;
@@ -82,6 +94,8 @@ public class Task1Key implements WritableComparable<Task1Key>{
 		if (!(obj instanceof Task1Key))
 			return false;
 		Task1Key other = (Task1Key) obj;
+		if (arrDelay != other.arrDelay)
+			return false;
 		if (day != other.day)
 			return false;
 		if (month != other.month)
@@ -93,9 +107,7 @@ public class Task1Key implements WritableComparable<Task1Key>{
 
 	@Override
 	public String toString() {
-		return "Task1Key [year=" + year + ", month=" + month + ", day=" + day + "]";
-	}
-	
-	
+		return  + year + "," + month + "," + day + "," + arrDelay;
+	}	
 
 }
