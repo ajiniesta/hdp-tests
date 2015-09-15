@@ -35,6 +35,9 @@ public class Task1 extends Configured implements Tool{
 		job.setMapperClass(MapperTask1.class);
 		job.setReducerClass(ReducerTask1.class);
 		
+		job.setOutputKeyClass(Task1Key.class);
+		job.setOutputValueClass(Task1Value.class);
+		
 		job.setNumReduceTasks(2);
 		
 		return job.waitForCompletion(true) ? 0 : 1;
