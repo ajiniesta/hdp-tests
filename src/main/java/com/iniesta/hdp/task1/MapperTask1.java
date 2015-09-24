@@ -67,7 +67,7 @@ public class MapperTask1 extends Mapper<LongWritable, Text, Task1Key, Task1Value
 	@Override
 	protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 		String[] splits = value.toString().split(",");
-		System.out.println(splits[17]);
+		//System.out.println(splits[17]);
 		if ("sfo".equalsIgnoreCase(splits[17])) {
 			Task1Key outKey = new Task1Key();
 			outKey.setYear(extractInteger(splits[0]));
