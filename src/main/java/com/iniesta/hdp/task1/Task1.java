@@ -68,7 +68,7 @@ public class Task1 extends Configured implements Tool {
 
 		conf.set("fs.defaultFS", "hdfs://sandbox.hortonworks.com:8020");
 		conf.set("hadoop.job.ugi", "root");
-		conf.set("mapred.job.tracker", "sandbox.hortonworks.com:8088");
+		
 
 		Job job = Job.getInstance(conf, "Task 1");
 		job.setJarByClass(Task1.class);
