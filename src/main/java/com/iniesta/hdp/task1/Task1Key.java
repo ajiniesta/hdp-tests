@@ -30,7 +30,11 @@ public class Task1Key implements WritableComparable<Task1Key>{
 	public int compareTo(Task1Key o) {
 		long thisDate = Long.parseLong(year+""+addZero(month)+""+addZero(day));
 		long otherDate = Long.parseLong(o.year+""+addZero(o.month)+""+addZero(o.day));
-		return (int) (thisDate - otherDate);
+		int compare = (int) (thisDate - otherDate);
+		if(compare==0){
+			compare = o.arrDelay - arrDelay;
+		}
+		return compare;
 	}
 
 	private String addZero(int data) {
