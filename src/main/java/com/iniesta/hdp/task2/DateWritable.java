@@ -66,7 +66,7 @@ public class DateWritable implements WritableComparable<DateWritable>{
 		if (cal == null) {
 			if (other.cal != null)
 				return false;
-		} else if (!cal.equals(other.cal))
+		} else if (!toString().equals(other.toString()))
 			return false;
 		return true;
 	}
