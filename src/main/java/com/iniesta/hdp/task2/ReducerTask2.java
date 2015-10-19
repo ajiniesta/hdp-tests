@@ -6,7 +6,7 @@ import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class ReducerTask2 extends Reducer<DateWritable, DoubleWritable, Text, Text>{
+public class ReducerTask2 extends Reducer<DateWritable, DoubleWritable, DateWritable, DoubleWritable>{
 
 	private Text empty = new Text("");
 	
@@ -17,7 +17,7 @@ public class ReducerTask2 extends Reducer<DateWritable, DoubleWritable, Text, Te
 			acum += i.get();
 		}
 		
-		context.write(new Text(key.toString()+","+acum), empty);
+		context.write(key, new DoubleWritable(acum));
 	}
 
 	

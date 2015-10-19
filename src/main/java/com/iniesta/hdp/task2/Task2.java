@@ -42,8 +42,8 @@ public class Task2 extends Configured implements Tool {
 	public int run(final String[] args) throws Exception {
 		UserGroupInformation ugi = UserGroupInformation.createRemoteUser("root");
 
-		if (args.length != 2) {
-			System.out.println("Two parameters are required <input dir> and <output dir>");
+		if (args.length < 2) {
+			System.out.println("Two parameters are required <input dir> and <output dir> and an optional boolean to says to use combiner");
 			return -1;
 		}
 		
@@ -64,11 +64,14 @@ public class Task2 extends Configured implements Tool {
 
 	protected Integer innerRun(String[] args) throws Exception {
 		Configuration conf = getConf();
-
+		boolean usingCombiner = (args.length > 2 && "true".equalsIgnoreCase(args[2]));
+		
 		conf.set("fs.defaultFS", "hdfs://sandbox.hortonworks.com:8020");
 		conf.set("hadoop.job.ugi", "root");
 
-		Job job = Job.getInstance(conf, "Task 2");
+		conf.set("mapred.textoutputformat.separator", ",");
+		
+		Job job = Job.getInstance(conf, "Task 2"+(usingCombiner?" with Combiner":""));
 		job.setJarByClass(Task2.class);
 		
 		FileSystem fsy = FileSystem.get(conf);
@@ -85,6 +88,11 @@ public class Task2 extends Configured implements Tool {
 
 		job.setOutputKeyClass(DateWritable.class);
 		job.setOutputValueClass(DoubleWritable.class);
+		
+		if(usingCombiner){
+			LOG.info(">>>>>>>>>>>Using Combiner<<<<<<<<<<<<");
+			job.setCombinerClass(ReducerTask2.class);
+		}
 		
 		job.setPartitionerClass(PartitionerTask2.class);
 		

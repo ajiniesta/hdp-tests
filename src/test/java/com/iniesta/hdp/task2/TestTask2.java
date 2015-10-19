@@ -1,7 +1,5 @@
 package com.iniesta.hdp.task2;
 
-import static org.junit.Assert.*;
-
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Arrays;
@@ -18,13 +16,14 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestTask2 {
 
 	MapDriver<LongWritable, Text, DateWritable, DoubleWritable> mapDriver;
-	ReduceDriver<DateWritable, DoubleWritable, Text, Text> reduceDriver;
-	MapReduceDriver<LongWritable, Text, DateWritable, DoubleWritable, Text, Text> mapReduceDriver;
+	ReduceDriver<DateWritable, DoubleWritable, DateWritable, DoubleWritable> reduceDriver;
+	MapReduceDriver<LongWritable, Text, DateWritable, DoubleWritable, DateWritable, DoubleWritable> mapReduceDriver;
 	
 	@Before
 	public void setup(){
@@ -63,14 +62,27 @@ public class TestTask2 {
 		key.fillDate("1960/3/14");
 		List<DoubleWritable> values = Arrays.asList(new DoubleWritable(0.25),new DoubleWritable(0.1));
 		reduceDriver.withInput(key, values);
-		reduceDriver.withOutput(new Text("1960/03/14,0.35"), new Text(""));
+		reduceDriver.withOutput(key, new DoubleWritable(0.35));
 		reduceDriver.runTest();
 	}
 	
 	@Test
-	public void testMapReduce() throws IOException{
+	public void testMapReduce() throws IOException, ParseException{
+		DateWritable key = new DateWritable();
+		key.fillDate("1960/3/14");
 		mapReduceDriver.withInput(new LongWritable(), new Text("1960/3/14,0.25"));
-		mapReduceDriver.withOutput(new Text("1960/03/14,0.25"), new Text(""));
+		mapReduceDriver.withOutput(key, new DoubleWritable(0.25));
+		mapReduceDriver.runTest();
+	}
+	
+	@Test
+	@Ignore
+	public void testMapReduce2() throws IOException, ParseException{
+		DateWritable key = new DateWritable();
+		key.fillDate("1960/3/14");
+		mapReduceDriver.withInput(new LongWritable(), new Text("1960/3/14,0.25"));
+		mapReduceDriver.withInput(new LongWritable(), new Text("1960/3/14,0.1"));
+		mapReduceDriver.withOutput(key, new DoubleWritable(0.35));
 		mapReduceDriver.runTest();
 	}
 }
