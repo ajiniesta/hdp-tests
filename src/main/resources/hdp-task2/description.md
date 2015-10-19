@@ -1,4 +1,5 @@
 # Task 2
+Generate a map reduce working as described here: 
 
 #Input
 
