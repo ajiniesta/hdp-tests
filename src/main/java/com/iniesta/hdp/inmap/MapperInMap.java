@@ -25,8 +25,8 @@ public class MapperInMap extends Mapper<Object, Text, Text, LongWritable>{
 	}
 
 	
-//	@Override
-	protected void map2(Object key, Text value, Context context)
+	@Override
+	protected void map(Object key, Text value, Context context)
 			throws IOException, InterruptedException {
 		String[] input = value.toString().split("\\s+");
 		for (String word : input) {
@@ -39,8 +39,8 @@ public class MapperInMap extends Mapper<Object, Text, Text, LongWritable>{
 		}
 	}
 
-	@Override
-	protected void map(Object key, Text value, Context context)
+//	@Override
+	protected void map2(Object key, Text value, Context context)
 			throws IOException, InterruptedException {
 		StringTokenizer tokenizer = new StringTokenizer(value.toString());
 		while (tokenizer.hasMoreTokens()) {
@@ -48,8 +48,8 @@ public class MapperInMap extends Mapper<Object, Text, Text, LongWritable>{
 		}
 	}
 	
-//	@Override
-	protected void cleanup22(Context context)
+	@Override
+	protected void cleanup(Context context)
 			throws IOException, InterruptedException {
 		queue = new PriorityQueue<Word>(words);
 		for (int i = 0; i < maxResults; i++) {
