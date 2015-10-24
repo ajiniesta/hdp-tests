@@ -25,7 +25,7 @@ public class GeneratorData extends DatasetGenerator{
 	@Override
 	public List<String> generateLine() {
 		List<String> line = new ArrayList<String>();
-		line.add(getRandomDate(2010));
+		line.add(getRandomDate(2014));
 		line.add(getRandomString(concepts));
 		line.add(getRandomDouble(1000D));
 		return line;
