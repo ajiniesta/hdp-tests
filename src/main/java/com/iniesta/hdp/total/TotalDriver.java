@@ -45,17 +45,19 @@ public class TotalDriver extends Configured implements Tool {
 		String input = getClass().getClassLoader().getResource("total/dataset").toString();
 		FileInputFormat.addInputPath(job, new Path(input));
 		FileOutputFormat.setOutputPath(job, new Path("output/total" + System.currentTimeMillis()));
-
+		
 		job.setMapperClass(MapTotal.class);
-		job.setOutputKeyClass(LongWritable.class);
-		job.setOutputValueClass(Text.class);
+		job.setInputFormatClass(TotalInputFormat.class);
+		
+		job.setOutputKeyClass(TotalKey.class);
+		job.setOutputValueClass(TotalValue.class);
 
 		job.setReducerClass(ReducerTotal.class);
 
 		job.setNumReduceTasks(2);
 
 		job.setPartitionerClass(TotalOrderPartitioner.class);
-		InputSampler.Sampler<LongWritable, Text> sampler = new InputSampler.RandomSampler<LongWritable, Text>(0.1,
+		InputSampler.Sampler<TotalKey, TotalValue> sampler = new InputSampler.RandomSampler<TotalKey, TotalValue>(0.1,
 				200);
 		InputSampler.writePartitionFile(job, sampler);
 
