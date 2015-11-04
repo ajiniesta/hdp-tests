@@ -16,8 +16,14 @@ public abstract class DatasetGenerator {
 	private int numFiles;
 	private Random random;
 	private DecimalFormat formatter;
-
+	private String prefix;
+	
 	public DatasetGenerator(String[] args) {
+		this(args, "data");
+	}
+	
+	public DatasetGenerator(String[] args, String prefix) {
+		this.prefix = prefix;
 		if (args.length != 1) {
 			numFiles = 1;
 		} else {
@@ -35,7 +41,7 @@ public abstract class DatasetGenerator {
 	}
 
 	public void generateFile(int i) throws Exception {
-		BufferedWriter bw = new BufferedWriter(new FileWriter("data_" + i + ".csv"));
+		BufferedWriter bw = new BufferedWriter(new FileWriter(prefix+"_" + i + ".csv"));
 		for (int k = 0; k < getNumLines(); k++) {
 			bw.write(getLine() + "\n");
 		}
