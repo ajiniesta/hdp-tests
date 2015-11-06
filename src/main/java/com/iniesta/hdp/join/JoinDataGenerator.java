@@ -29,8 +29,8 @@ public class JoinDataGenerator {
 		public List<String> generateLine() {
 			List<String> line = new ArrayList<String>();
 			line.add("" + (++id));
-			String fullName = super.getRandomString(names) + super.getRandomString(names)
-					+ super.getRandomString(surnames);
+			String fullName = super.getRandomString(names) + " " + super.getRandomString(names)
+					+ " " + super.getRandomString(surnames);
 			line.add(fullName);
 			line.add(getRandomDate(1970));
 			return line;

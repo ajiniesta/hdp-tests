@@ -17,22 +17,10 @@ import org.apache.log4j.PatternLayout;
 public class CategoriesDriver extends Configured implements Tool {
 
 	public static void main(String[] args) throws Exception {
-		initLogs();
 		int exitCode = ToolRunner.run(new Configuration(), new CategoriesDriver(), args);
 		System.exit(exitCode);
 	}
-	
-	private static void initLogs() {
-		ConsoleAppender console = new ConsoleAppender(); // create appender
-		// configure the appender
-		String PATTERN = "%d [%p|%c|%C{1}] %m%n";
-		console.setLayout(new PatternLayout(PATTERN));
-		console.setThreshold(Level.INFO);
-		console.activateOptions();
-		// add appender to any Logger (here is root)
-		Logger.getRootLogger().addAppender(console);
-	}
-	
+		
 	public int run(String[] args) throws Exception {
 
 		String dataset = getClass().getClassLoader().getResource("categories/dataset").toString();
