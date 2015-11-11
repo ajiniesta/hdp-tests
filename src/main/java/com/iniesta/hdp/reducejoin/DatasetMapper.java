@@ -16,7 +16,6 @@ public class DatasetMapper extends Mapper<LongWritable, Text, ReduceJoinKey, Red
 		String[] fields = StringUtils.split(value.toString(), StringUtils.COMMA);
 		ReduceJoinKey rjKey = new ReduceJoinKey();
 		rjKey.setId(Integer.parseInt(fields[0]));
-		rjKey.setDiscriminator(1);
 		ReduceJoinValue rjValue = new ReduceJoinValue();
 		rjValue.setValue(Double.parseDouble(fields[2]));
 		context.write(rjKey, rjValue);

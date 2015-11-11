@@ -16,7 +16,6 @@ public class CustomerMapper extends Mapper<LongWritable, Text, ReduceJoinKey, Re
 		String[] fields = StringUtils.split(value.toString(), StringUtils.COMMA);
 		ReduceJoinKey rjKey = new ReduceJoinKey();
 		rjKey.setId(Integer.parseInt(fields[0]));
-		rjKey.setDiscriminator(0);
 		ReduceJoinValue rjValue = new ReduceJoinValue();
 		rjValue.setName(fields[1]);
 		context.write(rjKey, rjValue);

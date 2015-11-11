@@ -4,7 +4,6 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
@@ -22,6 +21,8 @@ public class ReduceSideJoinDriver extends Configured implements Tool{
 	public int run(String[] args) throws Exception {
 		Configuration conf = getConf();
 		conf.set("mapreduce.output.textoutputformat.separator", ",");
+//		conf.set("iniesta.join.type","INNER");
+//		System.out.println(">>>>>>>>>>>>"+conf.get("iniesta.join.type")+"<<<<<<<<<<<<");
 		
 		Job job = Job.getInstance(conf, "Reduce Side Join");
 		String customerPath = getClass().getClassLoader().getResource("join/customer").toString();

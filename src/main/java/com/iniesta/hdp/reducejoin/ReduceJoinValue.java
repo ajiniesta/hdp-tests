@@ -4,12 +4,16 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.Writable;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Mapper.Context;
 
 public class ReduceJoinValue implements Writable{
 
 	private String name;
-	private double value;
+	private double value;	
 	
 	@Override
 	public void write(DataOutput out) throws IOException {
@@ -47,5 +51,11 @@ public class ReduceJoinValue implements Writable{
 		return  name + "," + value;
 	}
 
+	public boolean isLeft(){
+		return !isRight();
+	}
 	
+	public boolean isRight(){
+		return "".equals(name);
+	}
 }
