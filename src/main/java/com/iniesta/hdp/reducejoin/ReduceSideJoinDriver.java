@@ -21,8 +21,6 @@ public class ReduceSideJoinDriver extends Configured implements Tool{
 	public int run(String[] args) throws Exception {
 		Configuration conf = getConf();
 		conf.set("mapreduce.output.textoutputformat.separator", ",");
-//		conf.set("iniesta.join.type","INNER");
-//		System.out.println(">>>>>>>>>>>>"+conf.get("iniesta.join.type")+"<<<<<<<<<<<<");
 		
 		Job job = Job.getInstance(conf, "Reduce Side Join");
 		String customerPath = getClass().getClassLoader().getResource("join/customer").toString();
