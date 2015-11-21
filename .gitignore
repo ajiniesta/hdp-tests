@@ -18,3 +18,15 @@ hs_err_pid*
 .idea
 *.iml
 /output/
+
+/build
+/gradle
+/.gradle
+gradlew
+gradlew.bat
+settings.gradl/gradle
+/.gradle
+gradlew
+gradlew.bat
+settings.gradle
+

@@ -25,11 +25,14 @@ public class Driver extends Configured implements Tool{
 		Job job = Job.getInstance(conf, "Another example for the task2");
 		job.setJarByClass(Driver.class);
 		
-		String input = getClass().getClassLoader().getResource("hdp-task2/dataset").toString();
+		String input = getClass().getClassLoader().getResource("hdp-task2/dataset/1-year").toString();
 		FileInputFormat.addInputPath(job, new Path(input));		
+		input = getClass().getClassLoader().getResource("hdp-task2/dataset/5-year").toString();
+		FileInputFormat.addInputPath(job, new Path(input));
 		FileOutputFormat.setOutputPath(job, new Path("output/task2_"+System.currentTimeMillis()));
 		
 		job.setMapperClass(ExamMapper.class);
+		job.setCombinerClass(ExamReducer.class);
 		job.setReducerClass(ExamReducer.class);
 		
 		job.setOutputKeyClass(DateWritable.class);

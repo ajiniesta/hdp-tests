@@ -30,12 +30,7 @@ public class TotalRecordReader extends RecordReader<TotalKey, TotalValue> {
 		fsInput = fs.open(path);
 		in = new BufferedReader(new InputStreamReader(fsInput));
 		start = fileSplit.getStart();
-		end = start + fileSplit.getLength();
-//		fsInput.seek(start);
-//		if(start!=0){
-//			start += fsInput.read(0, new byte[]{}, 0, (int)Math.min(Integer.MAX_VALUE, end-start));
-//		}
-		
+		end = start + fileSplit.getLength();		
 	}
 
 	@Override
