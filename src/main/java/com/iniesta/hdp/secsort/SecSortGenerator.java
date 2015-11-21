@@ -8,11 +8,11 @@ import com.iniesta.hdp.DatasetGenerator;
 public class SecSortGenerator extends DatasetGenerator{
 
 	public static void main(String[] args) throws Exception {
-		new SecSortGenerator(args).generateFiles();
+		new SecSortGenerator(1).generateFiles();
 	}
 	
-	public SecSortGenerator(String[] args) {
-		super(args);
+	public SecSortGenerator(int numFiles) {
+		super(numFiles);
 	}
 
 	@Override

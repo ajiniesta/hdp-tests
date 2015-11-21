@@ -13,15 +13,15 @@ public class JoinDataGenerator {
 			"Anderson", "Fitipaldi", "Hamilton" };
 
 	public static void main(String[] args) throws Exception {
-		new CustomerClientGenerator(args).generateFiles();
-		new PurchaseDataGenerator(new String[]{"5"}).generateFiles();
+		new CustomerClientGenerator().generateFiles();
+		new PurchaseDataGenerator().generateFiles();
 	}
 
 	static class CustomerClientGenerator extends DatasetGenerator {
 		private int id;
 
-		public CustomerClientGenerator(String[] args) {
-			super(args, "customer");
+		public CustomerClientGenerator() {
+			super(1, "customer");
 			id = 0;
 		}
 
@@ -44,8 +44,8 @@ public class JoinDataGenerator {
 
 	static class PurchaseDataGenerator extends DatasetGenerator {
 
-		public PurchaseDataGenerator(String[] args) {
-			super(args, "purchase");
+		public PurchaseDataGenerator() {
+			super(5, "purchase");
 		}
 
 		@Override

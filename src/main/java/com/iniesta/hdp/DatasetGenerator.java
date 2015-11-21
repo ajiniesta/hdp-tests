@@ -18,17 +18,17 @@ public abstract class DatasetGenerator {
 	private DecimalFormat formatter;
 	private String prefix;
 	
-	public DatasetGenerator(String[] args) {
-		this(args, "data");
+	public DatasetGenerator() {
+		this(1, "data");
 	}
 	
-	public DatasetGenerator(String[] args, String prefix) {
-		this.prefix = prefix;
-		if (args.length != 1) {
-			numFiles = 1;
-		} else {
-			numFiles = Integer.parseInt(args[0]);
-		}
+	public DatasetGenerator(int numFiles) {
+		this(numFiles, "data");
+	}
+	
+	public DatasetGenerator(int numFiles, String prefix) {
+		this.prefix = prefix;		
+		this.numFiles = numFiles;		
 		random = new Random(System.currentTimeMillis());
 		DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.ENGLISH);
 		formatter = new DecimalFormat("#.##", symbols);
@@ -40,7 +40,7 @@ public abstract class DatasetGenerator {
 		}
 	}
 
-	public void generateFile(int i) throws Exception {
+	private void generateFile(int i) throws Exception {
 		BufferedWriter bw = new BufferedWriter(new FileWriter(prefix+"_" + i + ".csv"));
 		for (int k = 0; k < getNumLines(); k++) {
 			bw.write(getLine() + "\n");
@@ -54,6 +54,30 @@ public abstract class DatasetGenerator {
 		return getRandomDate(1960);
 	}
 
+	public String getRandomDateDMY(int startingYear) {
+
+		Calendar c = new GregorianCalendar();
+		int currentYear = c.get(Calendar.YEAR);
+
+		int year = random.nextInt(currentYear - startingYear) + startingYear;
+		int month = random.nextInt(12) + 1;
+		int day;
+		if (month == 2) {
+			if ((year % 4) == 0) {
+				day = random.nextInt(29) + 1;
+			} else {
+				day = random.nextInt(28) + 1;
+			}
+		} else if (month == 4 || month == 6 || month == 9 || month == 11) {
+			day = random.nextInt(30) + 1;
+		} else {
+			day = random.nextInt(31) + 1;
+		}
+
+		return fillZero(day) + "/" + fillZero(month) + "/" + year;
+	}
+
+	
 	public String getRandomDate(int startingYear) {
 
 		Calendar c = new GregorianCalendar();
@@ -111,7 +135,7 @@ public abstract class DatasetGenerator {
 		return sLine;
 	}
 
-	private String getFieldSeparator() {
+	public String getFieldSeparator() {
 		return ",";
 	}
 

@@ -14,12 +14,12 @@ public class GeneratorData extends DatasetGenerator{
 
 	private static String[] concepts = { "gas", "electricity", "internet", "car", "groceries", "computer", "rent", "taxes" };
 	
-	public GeneratorData(String[] args) {
-		super(args);
+	public GeneratorData() {
+		super(1);
 	}
 
 	public static void main(String[] args) throws Exception {		
-        new GeneratorData(args).generateFiles();
+        new GeneratorData().generateFiles();
 	}
 
 	@Override
